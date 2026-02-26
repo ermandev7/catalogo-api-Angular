@@ -1,0 +1,28 @@
+<div *ngIf="state$ | async as state">
+
+  <!-- LOADING (Skeleton Grid) -->
+  <div *ngIf="state.status === 'loading'" class="products-grid">
+    <div class="card sk-card" *ngFor="let _ of skeletonItems">
+      <div class="sk sk-img"></div>
+      <div class="sk sk-title"></div>
+      <div class="sk sk-price"></div>
+    </div>
+  </div>
+
+  <!-- ERROR -->
+  <p *ngIf="state.status === 'error'" class="status error">
+    {{ state.message }}
+  </p>
+
+  <!-- SUCCESS -->
+  <div *ngIf="state.status === 'success'" class="products-grid">
+    <div class="card" *ngFor="let p of state.data">
+      <a [routerLink]="['/products', p.id]">
+        <img [src]="p.image" [alt]="p.title" />
+        <h3>{{ p.title }}</h3>
+        <p class="price">{{ p.price | currency:'USD' }}</p>
+      </a>
+    </div>
+  </div>
+
+</div>

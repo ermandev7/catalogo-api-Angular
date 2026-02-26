@@ -1,0 +1,58 @@
+<div class="detail-page" *ngIf="state$ | async as state">
+
+  <div class="topbar">
+    <a class="back" routerLink="/">← Volver al catálogo</a>
+  </div>
+
+  <div *ngIf="state.status === 'loading'" class="detail-card skeleton">
+  <div class="media">
+    <div class="sk sk-image"></div>
+  </div>
+
+  <div class="content">
+    <div class="meta">
+      <div class="sk sk-pill"></div>
+      <div class="sk sk-price"></div>
+    </div>
+
+    <div class="sk sk-title"></div>
+    <div class="sk sk-line"></div>
+    <div class="sk sk-line"></div>
+    <div class="sk sk-line short"></div>
+
+    <div class="actions">
+      <div class="sk sk-btn"></div>
+      <div class="sk sk-btn ghost"></div>
+    </div>
+  </div>
+</div>
+
+  <p class="status error" *ngIf="state.status === 'error'">
+    {{ state.message }}
+  </p>
+
+  <div *ngIf="state.status === 'success'" class="detail-card">
+    <div class="media">
+      <img [src]="state.data.image" [alt]="state.data.title" />
+    </div>
+
+    <div class="content">
+      <div class="meta">
+        <span class="category">{{ state.data.category }}</span>
+        <span class="price">{{ state.data.price | currency:'USD' }}</span>
+      </div>
+
+      <h1 class="title">{{ state.data.title }}</h1>
+
+      <p class="description">
+        {{ state.data.description }}
+      </p>
+
+      <div class="actions">
+        <button type="button" class="btn primary">Agregar al carrito</button>
+        <button type="button" class="btn ghost">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+</div>
